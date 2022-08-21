@@ -53,4 +53,9 @@ public class OrderService {
 		order.setUserId(userId);
 		orderrepo.save(order);
 	}
+
+	public List<OrderModel> getAllOrders()
+	{
+		return orderrepo.findAll();
+		}
 }

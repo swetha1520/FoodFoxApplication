@@ -9,7 +9,10 @@ import com.example.springboot.model.UserModel;
 @Repository
 public interface UserRepository extends JpaRepository<UserModel,Integer> {
 
-	UserModel findByEmailAndPassword(String username,String password);
+	UserModel findByEmailAndPassword(String email,String password);
 
+    UserModel findUserIdByEmail(String email);
+
+    
 	
 }

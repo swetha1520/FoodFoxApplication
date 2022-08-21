@@ -3,6 +3,7 @@ package com.example.springboot.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +14,7 @@ import com.example.springboot.model.OrderModel;
 import com.example.springboot.service.CartService;
 import com.example.springboot.service.OrderService;
 import com.example.springboot.service.ProductService;
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class OrderController {
 
@@ -44,4 +45,10 @@ public class OrderController {
 	{
 		orderservice.addItemToOrder(prodservice.getProductByProdName(productName), userId);
 	}
+
+	@GetMapping("/admin/getAllOrders")
+	public List<OrderModel> getAllOrders()
+	{
+		return orderservice.getAllOrders();
+		}
 }

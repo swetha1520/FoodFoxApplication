@@ -49,4 +49,14 @@ public class UserService {
 		else 
 			return true;
 	}
+	public UserModel getUserByEmailAndPassword(String email,String password)
+	{
+		return userrepo.findByEmailAndPassword(email, password);
+		
+	}
+	public int getUserIdByEmail(String email)
+	{
+		UserModel user=userrepo.findUserIdByEmail(email);
+		return user.getUserId();
+	}
 }

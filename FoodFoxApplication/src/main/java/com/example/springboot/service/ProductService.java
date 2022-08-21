@@ -30,7 +30,10 @@ public class ProductService {
 	{
 		 prodrepo.deleteById(productId);
 	}
-	
+	// public void deleteProductByName(String productName)
+	// {
+	// 	prodrepo.deleteByProductName(productName);
+	// }
 	public boolean editProductById(ProductModel product, int productId)
 	{
 		if(prodrepo.existsById(productId))

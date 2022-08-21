@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.example.springboot.model.ProductModel;
 import com.example.springboot.service.ProductService;
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class ProductController {
 
@@ -62,4 +63,10 @@ public class ProductController {
 	{
 		return prodservice.getProductById(productId);
 	}
+
+	// @DeleteMapping("/admin/deleteProductByName/{productName}")
+    // public void deleteProductByName(@PathVariable int productId)
+	// {
+	// 	prodservice.deleteProductByName(productName);
+	// }
 }
