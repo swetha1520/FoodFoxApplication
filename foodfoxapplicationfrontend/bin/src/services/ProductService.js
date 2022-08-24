@@ -16,8 +16,11 @@ class ProductService
     }
     deleteProductById(productId)
     {
-        return axios.delete("http://localhost:8080/admin/deleteProductById/"+productId);
+        return axios.get("http://localhost:8080/admin/deleteProductById"+"/"+productId)
+        
+    
     }
+    
     deleteProductByName(productName)
     {
         return axios.delete("http://localhost:8080/admin/deleteProductByName"+"/"+productName);
@@ -31,5 +34,6 @@ class ProductService
   {
      return axios.put("http://localhost/8080/admin/editProductById/"+productId,product);
   }
+  
 }
-export default ProductService;
+export default new ProductService();

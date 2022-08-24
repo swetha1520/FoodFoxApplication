@@ -30,7 +30,15 @@ public class CartService {
 		cart.setUserId(userId);
 		cartrepo.save(cart);
 	}
-	
+	public void addItemToOrder(ProductModel product,int userId)
+	{
+		CartModel cart=new CartModel();
+		cart.setProductName(product.getProductName());
+		cart.setPrice(product.getPrice());
+		cart.setQuantity(product.getQuantity());
+		cart.setUserId(userId);
+		cartrepo.save(cart);
+	}
 	public List<CartModel> viewCartItemsByUserId(int userId)
 	{
 		return cartrepo.findById(userId);
@@ -40,6 +48,12 @@ public class CartService {
 	{
 		cartrepo.deletebyuserid(userId);
 	}
-	
-	
+	public void deleteItemByName(String productName)
+	{
+		cartrepo.deleteItemByName(productName);
+	}
+	public void deleteItemByCartId(int cartItemId)
+	{
+		cartrepo.deleteById(cartItemId);
+	}
 }

@@ -24,11 +24,14 @@ const AdminProductsList=(props)=>
        }).catch(error=>{
            console.log(error);
        })
+       console.log(localStorage.getItem('userId'));
+
    }
 
    const deleteProductById=(productId)=>{(
-       fetch("http://localhost:8080/admin/deleteProductById/"+productId).then((response)=>{
-          getAllProducts();
+      fetch("http://localhost:8080/admin/deleteProductById"+"/"+productId,{method:'DELETE'}).then((response)=>{
+      
+       getAllProducts();
        }).catch(error=>{
            console.log(error);
        })
@@ -37,7 +40,7 @@ const AdminProductsList=(props)=>
    function Update(productId)
    {
        console.log(productId);
-       navigate("/admin/EditProductById/"+productId);
+       navigate('/admin/editProductById/'+productId);
    }
 
    
@@ -87,16 +90,16 @@ const AdminProductsList=(props)=>
                                 
                                 
                             </td>
-                            {/* <td>
-                                <ReactBootStrap.Button type="submit" variant="success" size="sl" onClick={()=>deleteProductById(products.productId)}>Delete</ReactBootStrap.Button>
-                            </td> */}
                             <td>
+                                <ReactBootStrap.Button type="submit" variant="success" size="sl" onClick={()=>deleteProductById(products.productId)}>Delete</ReactBootStrap.Button>
+                            </td>
+                            {/* <td>
                                 <div>
                                 <IconButton onClick={()=>deleteProductById(products.productId)} aria-label="remove"> 
                                 <DeleteIcon></DeleteIcon>
                                 </IconButton>
                                 </div>
-                            </td>
+                            </td> */}
                             
                         </tr>
                         </>

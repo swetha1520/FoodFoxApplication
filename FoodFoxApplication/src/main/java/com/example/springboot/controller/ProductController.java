@@ -1,7 +1,6 @@
 package com.example.springboot.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -47,22 +46,34 @@ public class ProductController {
 	}
 	
 	@PutMapping("/admin/editProductById/{productId}")
-	public void editProductById(@RequestBody ProductModel product,@PathVariable int productId)
+	public ProductModel editProductById(@PathVariable int productId,@RequestBody ProductModel product)
 	{
-		prodservice.editProductById(product, productId);
+		return prodservice.editProductById(productId,product);
+	}
+	@PutMapping("/admin/editProductByName/{productName}")
+	public void editProductByName(@RequestBody ProductModel product,@PathVariable String productName)
+	{
+		 prodservice.editProductByName(product, productName);
 	}
 	
+	
 	@GetMapping("/user/getProductById/{productId}")
-	public Optional<ProductModel> getProductById(@PathVariable int productId)
+	public ProductModel getProductById(@PathVariable int productId)
 	{
 		return prodservice.getProductById(productId);
+	}
+	@GetMapping("/user/getProductByName/{productName}")
+	public ProductModel getProductByName(@PathVariable String productName)
+	{
+		return prodservice.getProductByProdName(productName);
 	}
 	
 	@GetMapping("/admin/getProductById/{productId}")
-	public Optional<ProductModel> getProductbyId(@PathVariable int productId)
+	public ProductModel getProductbyId(@PathVariable int productId)
 	{
 		return prodservice.getProductById(productId);
 	}
+	
 
 	// @DeleteMapping("/admin/deleteProductByName/{productName}")
     // public void deleteProductByName(@PathVariable int productId)

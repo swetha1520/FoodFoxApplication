@@ -7,32 +7,22 @@ import { useNavigate, useParams } from 'react-router-dom';
 const AdminEditProductById=()=>
 {
     const[productName,setProductName]=useState('')
+    const[imageUrl,setImageUrl]=useState('')
     const[price,setPrice]=useState('')
     const[description,setDescription]=useState('')
-    const[imageUrl,setImageUrl]=useState('')
     const[quantity,setQuantity]=useState('')
     const navigate=useNavigate();
-    const{productId}=useParams();
-
-
-    useEffect(()=>{
-        fetch("http://localhost:8080/admin/getProductById"+"/"+productId).then((response)=>{
-            setProductName(response.productName);
-            setPrice(response.price);
-            setDescription(response.description);
-            setImageUrl(response.imageUrl);
-            setQuantity(response.quantity);
-        }).catch(error=>{
-            console.log(error);
-        })
-    },[productId])
+    const {productId}=useParams();
+    console.log(productId);
 
     const updateProduct=(e)=>{
         e.preventDefault();
+        
         const product={productName,price,description,imageUrl,quantity};
+        console.log('product => '+JSON.stringify(product));
         // if(productId)
         // {
-           fetch("http://localhost/8080/admin/editProductById/"+productId,product).then((response)=>{
+           fetch("http://localhost:8080/admin/editProductById"+"/"+productId,product,{method:'PUT'}).then((response)=>{
                 navigate("/products")
             }).catch(error=>{
                 console.log(error);
@@ -40,7 +30,17 @@ const AdminEditProductById=()=>
         // }
     }
 
-    
+    useEffect(()=>{
+        fetch("http://localhost:8080/admin/getProductById"+"/"+productId).then((response)=>{
+            setProductName(response.productName);
+            setImageUrl(response.imageUrl);
+            setPrice(response.price);
+            setDescription(response.description);
+            setQuantity(response.quantity);
+        }).catch(error=>{
+            console.log(error);
+        })
+    },[productId])
 
 
     return(
@@ -83,7 +83,7 @@ const AdminEditProductById=()=>
                       onChange={(e)=>setQuantity(e.target.value)} placeholder="Enter Quantity"/>
                   </ReactBootStrap.Form.Group>
               </ReactBootStrap.Row>
-              <ReactBootStrap.Button type="submit" variant='success' size='sl' onClick={(e)=>updateProduct(e)}>AddProduct</ReactBootStrap.Button>
+              <ReactBootStrap.Button type="submit" variant='success' size='sl' onClick={(e)=>updateProduct(e)}>UpdateProduct</ReactBootStrap.Button>
           </ReactBootStrap.Form>
           </div>
         </div>

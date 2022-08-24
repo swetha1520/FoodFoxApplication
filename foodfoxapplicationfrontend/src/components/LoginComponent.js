@@ -3,6 +3,8 @@ import Dashboard from '../dashboards/Dashboard';
 import * as ReactBootStrap from 'react-bootstrap';
 import LoginService from '../services/LoginService';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+
 function LoginComponent()
 {
     
@@ -10,6 +12,8 @@ function LoginComponent()
                 const[email,setEmail]=useState('');
                 const[password,setPassword]=useState('');
                 const navigate=useNavigate();
+                const [error,setError]=useState();
+
                 const changeEmail=(event)=>{
                 setEmail(event.target.value);
                 }
@@ -35,14 +39,26 @@ function LoginComponent()
                     {
                         let result=res.data;
                         localStorage.setItem('userId',result);
-                        navigate(`/home`);
+                        console.log(localStorage.getItem('userId')); 
+                        if(result!=null){
+                            navigate(`/home`);
+                        }
+                        else
+                        {
+                            toast("Invalid User");
+                        }    
                         
                     })
-                    
                 }
             }
-        })
+
+        },reason=>{
+            console.error(reason);
+            toast("Invalid details");
+        });
     }
+        
+    
     // handleClick=(e)=>
     // {
     //     e.preventDefault();

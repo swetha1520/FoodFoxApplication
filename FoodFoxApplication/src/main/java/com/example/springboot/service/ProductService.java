@@ -1,7 +1,6 @@
 package com.example.springboot.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,20 +33,24 @@ public class ProductService {
 	// {
 	// 	prodrepo.deleteByProductName(productName);
 	// }
-	public boolean editProductById(ProductModel product, int productId)
+	public ProductModel editProductById(int productId,ProductModel product)
 	{
-		if(prodrepo.existsById(productId))
-		{
-			prodrepo.save(product);
-			return true;
-		}
-		else
-			return false;
+		// ProductModel products=getProductById(productId);
+		// product.setProductName(products.getProductName());
+		// product.setImageUrl((products.getImageUrl()));
+	    // product.setPrice(products.getPrice());
+		// product.setDescription(products.getDescription());
+		// product.setQuantity(products.getQuantity());
+		return prodrepo.save(product);	
+	}
+	public void editProductByName(ProductModel product, String productName)
+	{
+		prodrepo.save(product);
 	}
 	
-	public Optional<ProductModel> getProductById(int productId)
+	public ProductModel getProductById(int productId)
 	{
-		return prodrepo.findById(productId);
+		return prodrepo.findById(productId).orElse(null);
 	
 	}
 	public ProductModel getProductByProdName(String productName)

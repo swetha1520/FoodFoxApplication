@@ -10,7 +10,7 @@ function UserDashboard()
                  <ReactBootStrap.Navbar.Brand href="/">FoodFox</ReactBootStrap.Navbar.Brand>
                  <ReactBootStrap.Nav className="me-auto">
                      <ReactBootStrap.Nav.Link href="/cart">Cart</ReactBootStrap.Nav.Link>
-                     <ReactBootStrap.Nav.Link href="/orders">My Orders</ReactBootStrap.Nav.Link>
+                     <ReactBootStrap.Nav.Link href="/myorders">My Orders</ReactBootStrap.Nav.Link>
                      <ReactBootStrap.Nav.Link href="/login">Logout</ReactBootStrap.Nav.Link>
 
                  </ReactBootStrap.Nav>

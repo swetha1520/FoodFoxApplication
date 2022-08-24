@@ -8,3 +8,7 @@
     text-align: center;
     color:brown
 }
+.error{
+    font-size: smaller;
+    color: red;
+}

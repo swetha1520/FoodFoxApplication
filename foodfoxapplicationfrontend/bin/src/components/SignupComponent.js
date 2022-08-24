@@ -19,12 +19,20 @@ function SignupComponent()
     const handleClick=(e)=>{
         e.preventDefault();
         let details={email,username,mobile,password,confirmPassword};
-        if(details.password===details.confirmPassword&&details.password.length>=8)
+       if(details.password===details.confirmPassword&&details.password.length>=8)
         {
-            SignupService.addUser(details);
-            navigate('/login');
+            SignupService.addUser(details).then(()=>{
+                navigate('/login');
+            }).Alert("Fill All the required details");
+            
                 
         }
+        // else
+        // {
+        //     ReactBootStrap.Alert("Password should match Confirm Password");
+        // }
+       
+
         
         
         
