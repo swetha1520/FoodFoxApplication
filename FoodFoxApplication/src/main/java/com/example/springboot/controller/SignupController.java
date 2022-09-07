@@ -51,4 +51,10 @@ public class SignupController {
 	public int method(@PathVariable String email) {
 		return userservice.getUserIdByEmail(email);
 	}
+
+	@GetMapping("/user/{userId}")
+	public UserModel getUserById(@PathVariable int userId)
+	{
+		return userservice.getUserById(userId);
+	}
 }

@@ -1,9 +1,10 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import Dashboard from '../dashboards/Dashboard';
 import * as ReactBootStrap from 'react-bootstrap';
 import LoginService from '../services/LoginService';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import { useAuth } from '../utils/auth';
 
 function LoginComponent()
 {
@@ -12,7 +13,8 @@ function LoginComponent()
                 const[email,setEmail]=useState('');
                 const[password,setPassword]=useState('');
                 const navigate=useNavigate();
-                const [error,setError]=useState();
+                const[user,setUser]=useState([]);
+                const auth=useAuth();
 
                 const changeEmail=(event)=>{
                 setEmail(event.target.value);
@@ -20,13 +22,20 @@ function LoginComponent()
                 const changePassword=(event)=>{
         setPassword(event.target.value);
     }
+    // useEffect(()=>{
+    //     LoginService.getUserById(localStorage.getItem("userId")).then(res=>{
+    //         setUser(res.data);
+    //     })
+    // })
     const handleClick=(e)=>
     {
         e.preventDefault();
+        // auth.login(user)
         let check={email, password};
         LoginService.checkUser(check).then((res)=>
         {
             let result=res.data;
+            
             if(result===true)
             {
                 if(check.email==="swetha@gmail.com"&&check.password==="Cherie")
@@ -38,15 +47,15 @@ function LoginComponent()
                     LoginService.getUserId(check.email).then((res)=>
                     {
                         let result=res.data;
+                        
                         localStorage.setItem('userId',result);
+                        // setUser(localStorage.getItem('userId'));
                         console.log(localStorage.getItem('userId')); 
+                        
                         if(result!=null){
-                            navigate(`/home`);
-                        }
-                        else
-                        {
-                            toast("Invalid User");
-                        }    
+                            auth.login(email)
+                            navigate('/home');
+                        }  
                         
                     })
                 }
@@ -101,6 +110,7 @@ function LoginComponent()
         return(
             <div>
             <Dashboard/>
+            
             <h3 className='text-center'>Signin</h3>
             <div className='form'>
                 <ReactBootStrap.Form>

@@ -1,5 +1,4 @@
-package com.example.springboot.model;
-
+package com.example.springboot.model; 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -70,6 +69,12 @@ public class UserModel {
 	public void setActive(String active) {
 		this.active = active;
 	}
+	@Override
+	public String toString() {
+		return "UserModel [active=" + active + ", email=" + email + ", mobile=" + mobile + ", password=" + password
+				+ ", role=" + role + ", userId=" + userId + ", username=" + username + "]";
+	}
+	
 	
 	
 }

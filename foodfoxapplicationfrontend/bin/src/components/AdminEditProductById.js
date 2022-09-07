@@ -18,25 +18,25 @@ const AdminEditProductById=()=>
     const updateProduct=(e)=>{
         e.preventDefault();
         
-        const product={productName,price,description,imageUrl,quantity};
+        const product={productName,imageUrl,price,description,quantity};
         console.log('product => '+JSON.stringify(product));
-        // if(productId)
-        // {
-           fetch("http://localhost:8080/admin/editProductById"+"/"+productId,product,{method:'PUT'}).then((response)=>{
-                navigate("/products")
+        if(productId)
+        {
+           ProductService.updateProductById(productId,product).then((response)=>{
+                navigate("/products");
             }).catch(error=>{
                 console.log(error);
             })
-        // }
+        }
     }
 
     useEffect(()=>{
-        fetch("http://localhost:8080/admin/getProductById"+"/"+productId).then((response)=>{
-            setProductName(response.productName);
-            setImageUrl(response.imageUrl);
-            setPrice(response.price);
-            setDescription(response.description);
-            setQuantity(response.quantity);
+        ProductService.getAdminProductById(productId).then((response)=>{
+            setProductName(response.data.productName);
+            setImageUrl(response.data.imageUrl);
+            setPrice(response.data.price);
+            setDescription(response.data.description);
+            setQuantity(response.data.quantity);
         }).catch(error=>{
             console.log(error);
         })

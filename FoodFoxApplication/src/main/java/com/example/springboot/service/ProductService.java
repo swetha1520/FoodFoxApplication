@@ -35,17 +35,23 @@ public class ProductService {
 	// }
 	public ProductModel editProductById(int productId,ProductModel product)
 	{
-		// ProductModel products=getProductById(productId);
-		// product.setProductName(products.getProductName());
-		// product.setImageUrl((products.getImageUrl()));
-	    // product.setPrice(products.getPrice());
-		// product.setDescription(products.getDescription());
-		// product.setQuantity(products.getQuantity());
-		return prodrepo.save(product);	
+		ProductModel prod=prodrepo.findById(productId).orElse(null);
+		prod.setProductName(product.getProductName());
+		prod.setDescription(product.getDescription());
+		prod.setPrice(product.getPrice());
+		prod.setImageUrl(product.getImageUrl());
+		prod.setQuantity(product.getQuantity());
+		ProductModel update=prodrepo.save(prod);
+		return update;
 	}
 	public void editProductByName(ProductModel product, String productName)
 	{
-		prodrepo.save(product);
+		ProductModel prod=prodrepo.findByProductName(productName);
+        product.setDescription(prod.getDescription());
+		product.setImageUrl(prod.getImageUrl());
+        product.setPrice(prod.getPrice());
+		product.setQuantity(prod.getQuantity());
+		prodrepo.save(prod);
 	}
 	
 	public ProductModel getProductById(int productId)

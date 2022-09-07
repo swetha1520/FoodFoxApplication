@@ -46,9 +46,9 @@ public class ProductController {
 	}
 	
 	@PutMapping("/admin/editProductById/{productId}")
-	public ProductModel editProductById(@PathVariable int productId,@RequestBody ProductModel product)
+	public void editProductById(@PathVariable int productId,@RequestBody ProductModel product)
 	{
-		return prodservice.editProductById(productId,product);
+	     prodservice.editProductById(productId,product);
 	}
 	@PutMapping("/admin/editProductByName/{productName}")
 	public void editProductByName(@RequestBody ProductModel product,@PathVariable String productName)

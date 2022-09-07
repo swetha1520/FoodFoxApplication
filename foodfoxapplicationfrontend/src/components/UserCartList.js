@@ -5,10 +5,17 @@ import { Table } from 'react-bootstrap';
 import './UserCart.css';
 import CartService from '../services/CartService';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../utils/auth';
+import LoginService from '../services/LoginService';
+
+
 const UserCartList=()=>{
 
     const navigate=useNavigate();
+    const auth=useAuth();
     const[cartitems,setCartItems]=useState([])
+
+
     useEffect(()=>{
         getAllCartItems();
     },[])
@@ -32,7 +39,11 @@ const UserCartList=()=>{
 
      const orderAllItems=()=>{
           CartService.placeOrder(localStorage.getItem("userId")).then(res=>{
-              navigate("/myorders");
+            // if(auth.user)
+            // {
+                navigate("/myorders");
+            // }
+              
           })
      }
      return(

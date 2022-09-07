@@ -15,5 +15,9 @@ class LoginService
     {
         return axios.get("http://localhost:8080/user",email,password);
     }
+    getUserById(userId)
+    {
+        return axios.get("http://localhost:8080/user/"+userId);
+    }
 }   
 export default new LoginService();

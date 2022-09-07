@@ -1,5 +1,6 @@
 package com.example.springboot.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,9 +19,13 @@ public class LoginController {
 	@PostMapping("/login")
 	public boolean checkUser(@RequestBody LoginModel user)
 	{
+	 
 	   if(userservice.isloginsuccess(user.getEmail(), user.getPassword())) {
 		   return true;
 	   }
+	  
 	   return false;
 	}
+
+	
 }

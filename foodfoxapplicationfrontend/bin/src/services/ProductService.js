@@ -32,7 +32,7 @@ class ProductService
     }
   updateProductById(productId,product)
   {
-     return axios.put("http://localhost/8080/admin/editProductById/"+productId,product);
+     return axios.put("http://localhost:8080/admin/editProductById/"+productId,product);
   }
   
 }

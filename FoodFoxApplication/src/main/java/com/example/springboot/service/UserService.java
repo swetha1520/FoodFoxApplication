@@ -9,7 +9,7 @@ import com.example.springboot.model.UserModel;
 import com.example.springboot.repository.UserRepository;
 
 @Service
-public class UserService {
+public class UserService{
 
 	@Autowired
 	private UserRepository userrepo;
@@ -59,4 +59,9 @@ public class UserService {
 		UserModel user=userrepo.findUserIdByEmail(email);
 		return user.getUserId();
 	}
+    public UserModel getUserById(int userId)
+	{
+		return userrepo.findById(userId).orElse(null);
+	}
+	
 }

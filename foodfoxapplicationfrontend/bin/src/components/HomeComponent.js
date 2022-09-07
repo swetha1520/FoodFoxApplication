@@ -4,12 +4,14 @@ import * as ReactBootStrap from 'react-bootstrap';
 import ProductService from '../services/ProductService';
 import { useNavigate } from 'react-router-dom';
 import CartService from '../services/CartService';
+import { useAuth } from '../utils/auth';
 
 
 const HomeComponent =(props)=>
 {
     const[products,setProducts]=useState([])
     const navigate=useNavigate();
+    const auth=useAuth();
     useEffect(()=>{
         getHomeProducts();
     },[])
@@ -18,8 +20,6 @@ const HomeComponent =(props)=>
        fetch("http://localhost:8080/user/getHomeProducts").then(res=>res.json())
        .then((result)=>{
         setProducts(result);
-        // localStorage.setItem('productId',result.data.productId);
-        // console.log(localStorage.getItem('productId'));
     }).catch(error=>{
         console.log(error);
     })         
@@ -27,44 +27,36 @@ const HomeComponent =(props)=>
     
    }
 
-  const showProduct=(productName)=>{
+  const showProduct=(productId)=>{
       
-      navigate(`/product/${productName}`);
-      this.props.history.push(`/product/${productName}`);
-  }
-
-  const addToCart=(productName)=>{
-      console.log(productName);
-      CartService.addItemCart(localStorage.getItem("userId"),productName).then(res=>{
-        navigate("/cart");
-      })
-     
-    // this.props.history.push(`/addToCart/${productName}`);
-
-  }
-
-  const placeOrder=(productName)=>{
-      console.log(productName);
-      CartService.placeSingleOrder(localStorage.getItem("userId"),productName).then(res=>{
-          navigate("/myorders");
-      })
+      navigate(`/product/${productId}`);
+      this.props.history.push(`/product/${productId}`);
   }
     return(
         <div>
-            <UserDashboard/>
+            <ReactBootStrap.Navbar bg="dark" variant="dark">
+             <ReactBootStrap.Container>
+                 <ReactBootStrap.Navbar.Brand href="/">FoodFox</ReactBootStrap.Navbar.Brand>
+                 <ReactBootStrap.Nav className="me-auto">
+                     <ReactBootStrap.Nav.Link href="/cart">Cart</ReactBootStrap.Nav.Link>
+                     <ReactBootStrap.Nav.Link href="/myorders">My Orders</ReactBootStrap.Nav.Link>
+                    <ReactBootStrap.Nav.Link href="/login">Logout</ReactBootStrap.Nav.Link>
+
+                 </ReactBootStrap.Nav>
+             </ReactBootStrap.Container>
+          </ReactBootStrap.Navbar>
+          <p>Welcome {auth.email}</p>
             <ReactBootStrap.Row lg={3}>
                 {products.map(product=>(
                     <div className="div">
                 <div key={product.productId}>
                     <ReactBootStrap.Col className="d-flex">
                     <ReactBootStrap.Card style={{ width: '18rem' }}>
-                        <ReactBootStrap.Card.Img variant="top" src={product.imageUrl} onClick={()=>{showProduct(product.productName)}}></ReactBootStrap.Card.Img>
+                        <ReactBootStrap.Card.Img variant="top" src={product.imageUrl} onClick={()=>{showProduct(product.productId)}}></ReactBootStrap.Card.Img>
                         <ReactBootStrap.Card.Body>
                             <ReactBootStrap.Card.Title>{product.productName}</ReactBootStrap.Card.Title>
                             <ReactBootStrap.Card.Text>{product.description}</ReactBootStrap.Card.Text>
                             <ReactBootStrap.Card.Text> Rs.{product.price} </ReactBootStrap.Card.Text>   
-                            <ReactBootStrap.Button variant="primary" onClick={()=>{addToCart(product.productName)}}>Add To Cart</ReactBootStrap.Button>
-                            <ReactBootStrap.Button variant="primary" onClick={()=>{placeOrder(product.productName)}}>Place Order</ReactBootStrap.Button>
                         </ReactBootStrap.Card.Body>
                     </ReactBootStrap.Card>
                     </ReactBootStrap.Col>
